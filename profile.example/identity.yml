@@ -1,0 +1,17 @@
+# Example profile — entirely fictional. Copy this directory to `profile/` and replace.
+identity:
+  name: Ada Okonkwo
+  email: ada@example.dev
+  phone: "+00 000 000 0000"
+  location: "Lisbon, Portugal"
+  timezone: "UTC+0"
+  links:
+    linkedin: linkedin.com/in/example
+    github: github.com/example
+    site: example.dev
+
+languages:
+  - name: Portuguese
+    level: Native
+  - name: English
+    level: Full professional proficiency

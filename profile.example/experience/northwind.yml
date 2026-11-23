@@ -1,0 +1,111 @@
+experience:
+  - id: EXP-northwind
+    org: Northwind Systems
+    title: Senior Platform Engineer — ML Infrastructure
+    location: "Lisbon, Portugal (remote)"
+    start: "2021-03"
+    end: present
+    kind: employment
+    scope: "Platform team of 6, supporting 40 engineers"
+    tags: [platform, ai, leadership]
+    progression:
+      - { title: Senior Platform Engineer, start: "2023-06", end: present }
+      - { title: Platform Engineer, start: "2021-03", end: "2023-05" }
+    atoms:
+      - id: NORTH-evalharness
+        text: >-
+          Built the evaluation harness that gates every model release, separating genuine
+          regression from sampling noise across 14 benchmark suites.
+        tags: [ai, eval, hands-on]
+        evidence: [EV-harness]
+        pinned: true
+        weight: 10
+
+      - id: NORTH-latency
+        text: >-
+          Cut p99 inference latency from 840ms to 310ms by reworking the batching layer,
+          without additional hardware.
+        tags: [ai, metric, performance]
+        evidence: [EV-latency]
+        weight: 9
+
+      - id: NORTH-scale
+        text: >-
+          Lead a platform team of 6 supporting 40 engineers across service infrastructure,
+          CI and developer tooling.
+        tags: [leadership, scale]
+        evidence: [EV-team]
+        weight: 7
+
+      - id: NORTH-ci
+        text: >-
+          Reduced median CI pipeline time from 22 minutes to 7 by parallelising the test
+          suite and introducing dependency-aware caching.
+        tags: [metric, cicd, async]
+        evidence: [EV-ci]
+        weight: 8
+
+      # Demonstrates the unverified path. The claim is honest but the saving was never
+      # measured, so EV-cost is not defensible: `check` warns, a normal build includes
+      # it with a flag, and `--strict` drops it.
+      - id: NORTH-costsave
+        text: >-
+          Reduced non-production cloud spend through rightsizing and scheduled scale-down
+          of idle environments.
+        tags: [cost, platform]
+        evidence: [EV-cost]
+        weight: 6
+
+      - id: NORTH-oncall
+        text: >-
+          Rewrote the on-call runbooks and alert thresholds, cutting pages per week from
+          31 to 9 over two quarters.
+        tags: [metric, reliability]
+        evidence: [EV-oncall]
+        weight: 7
+
+  - id: EXP-contract
+    org: Meridian Health
+    org_note: contract via Bluefin Consulting
+    title: Backend Engineer (contract)
+    location: Remote
+    start: "2020-05"
+    end: "2021-02"
+    kind: contract
+    tags: [backend, contract, async]
+    atoms:
+      - id: MERID-api
+        text: >-
+          Designed and shipped the appointments API serving 2 million monthly requests,
+          delivered fully asynchronously across a five-hour timezone gap.
+        tags: [backend, scale, async]
+        evidence: [EV-api]
+        weight: 6
+      - id: MERID-migration
+        text: >-
+          Migrated a legacy scheduling service to PostgreSQL with zero downtime.
+        tags: [backend, hands-on]
+        evidence: [EV-migration]
+        weight: 4
+
+  - id: EXP-firstjob
+    org: Cartwright Logistics
+    title: Software Engineer
+    location: "Porto, Portugal"
+    start: "2018-07"
+    end: "2020-04"
+    kind: employment
+    tags: [backend, earlier]
+    atoms:
+      - id: CART-routing
+        text: >-
+          Built the route optimisation service that reduced average delivery distance by 12%.
+        tags: [backend, metric]
+        evidence: [EV-routing]
+        weight: 4
+      - id: CART-onboard
+        text: >-
+          Automated developer environment setup, cutting onboarding from three days to one.
+        tags: [tooling, metric]
+        evidence: [EV-onboard]
+        weight: 3

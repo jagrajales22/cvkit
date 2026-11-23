@@ -1,0 +1,15 @@
+headlines:
+  - id: HL-general
+    text: "Senior Platform Engineer | Distributed Systems & Developer Experience"
+    tags: [general, platform]
+    use_when: Default, recruiter-facing
+
+  - id: HL-ai
+    text: "Senior Engineer | ML Infrastructure & Model Evaluation"
+    tags: [ai, eval]
+    use_when: ML infrastructure or evaluation roles
+
+  - id: HL-lead
+    text: "Engineering Lead | Platform Teams and Developer Tooling"
+    tags: [leadership]
+    use_when: Lead or manager roles

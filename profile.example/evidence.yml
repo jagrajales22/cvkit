@@ -1,0 +1,80 @@
+# The ledger. An atom may only claim what an entry here supports.
+#
+# `defensible: true` means: you could source this under questioning, today.
+# "I remember it being about that" is not a source. Neither is a round number
+# you reconstructed from memory two years later.
+evidence:
+  - id: EV-harness
+    claim: "Evaluation harness gating model releases across 14 benchmark suites"
+    source: "Repo: platform/eval-harness; release checklist"
+    defensible: true
+    recorded: "2026-01-14"
+
+  - id: EV-latency
+    claim: "p99 inference latency reduced 840ms to 310ms"
+    baseline: "840ms p99"
+    result: "310ms p99"
+    period: "Q2 2025"
+    source: "Grafana dashboard snapshot; perf review doc"
+    defensible: true
+    recorded: "2026-01-14"
+
+  - id: EV-team
+    claim: "Platform team of 6 supporting 40 engineers"
+    source: "Org chart"
+    defensible: true
+
+  - id: EV-ci
+    claim: "Median CI pipeline time 22 min to 7 min"
+    baseline: "22 minutes"
+    result: "7 minutes"
+    period: "Q4 2024"
+    source: "CI analytics export"
+    defensible: true
+
+  - id: EV-oncall
+    claim: "Pages per week reduced 31 to 9"
+    baseline: "31 pages/week"
+    result: "9 pages/week"
+    period: "two quarters, 2025"
+    source: "PagerDuty analytics"
+    defensible: true
+
+  # Not defensible: the number was never measured properly.
+  # `check` warns, `--strict` drops the atom. This is the system working.
+  - id: EV-cost
+    claim: "Cloud spend reduction from rightsizing"
+    baseline: "TODO — monthly spend before"
+    result: "TODO — monthly spend after"
+    source: "TODO — billing export, not yet pulled"
+    defensible: false
+
+  - id: EV-api
+    claim: "Appointments API at 2M monthly requests"
+    source: "Load dashboards; handover doc"
+    defensible: true
+
+  - id: EV-migration
+    claim: "Zero-downtime PostgreSQL migration"
+    source: "Migration runbook and postmortem"
+    defensible: true
+
+  - id: EV-routing
+    claim: "Average delivery distance reduced 12%"
+    baseline: "pre-launch average"
+    result: "-12%"
+    source: "Launch report, 2019"
+    defensible: true
+
+  - id: EV-onboard
+    claim: "Onboarding time three days to one"
+    source: "Team retro notes"
+    defensible: true
+
+  # Orphan: a proven fact with no atom using it. `check` flags this, because it
+  # usually means a bullet is missing rather than that the evidence is unwanted.
+  - id: EV-conference
+    claim: "Talk on evaluation harness design at a 600-person platform conference"
+    period: "2025"
+    source: "Conference programme; recording"
+    defensible: true

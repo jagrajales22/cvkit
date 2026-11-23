@@ -1,0 +1,30 @@
+{
+  "name": "cvkit",
+  "version": "0.1.0",
+  "description": "A CV generator that refuses to print claims you can't defend.",
+  "scripts": {
+    "check": "node src/cli.mjs check",
+    "evidence": "node src/cli.mjs evidence",
+    "build": "node src/cli.mjs build",
+    "pdf": "soffice --headless --convert-to pdf build/*.html --outdir build"
+  },
+  "keywords": [
+    "resume",
+    "cv",
+    "ats",
+    "yaml",
+    "open-source"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "docx": "^9.16.0",
+    "yaml": "^2.9.1"
+  },
+  "type": "module",
+  "bin": {
+    "cvkit": "src/cli.mjs"
+  }
+}

@@ -1,0 +1,33 @@
+# A target = the job you are building for. One file per application.
+# This example pairs with profile.example/.
+target:
+  id: example-ml-infra
+  company: Example Labs
+  role: ML Infrastructure Engineer
+  language: en
+  template: ats
+
+  # Terms from the posting, in their vocabulary. Not synonyms, not paraphrase.
+  keywords:
+    - evaluation
+    - benchmark
+    - inference
+    - latency
+    - Python
+    - platform
+    - CI
+    - remote
+
+  # Tags to favour, and to exclude outright.
+  prefer: [ai, eval, metric, async]
+  exclude: [earlier]
+
+  # Hard limits the renderer enforces.
+  budget:
+    atoms_total: 10
+    atoms_per_role: 6
+    pages: 2
+
+  # Pin or drop specific ids regardless of score.
+  force_include: []
+  force_exclude: []

@@ -1,0 +1,15 @@
+education:
+  - id: EDU-degree
+    kind: degree
+    credential: "B.Sc., Computer Science"
+    institution: "Example University"
+    start: "2014"
+    end: "2018"
+    tags: [general]
+
+  - id: CERT-k8s
+    kind: certification
+    credential: "Certified Kubernetes Administrator"
+    institution: "CNCF"
+    end: "2022"
+    tags: [platform]

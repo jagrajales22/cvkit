@@ -1,0 +1,25 @@
+skills:
+  - id: SK-ai
+    label: ML Infrastructure
+    tags: [ai, eval]
+    items:
+      - Evaluation harness design
+      - Benchmark construction
+      - Acceptance criteria for non-deterministic output
+      - Regression vs. sampling noise
+      - Inference serving
+
+  - id: SK-platform
+    label: Platform
+    tags: [general, platform]
+    items: [Distributed systems, Service meshes, Observability, CI/CD, Infrastructure as code]
+
+  - id: SK-programming
+    label: Programming
+    tags: [hands-on]
+    items: [Python, Go, TypeScript, SQL]
+
+  - id: SK-leadership
+    label: Leadership
+    tags: [leadership]
+    items: [Technical leadership, Mentoring, Cross-team design review, Async collaboration]

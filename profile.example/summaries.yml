@@ -1,0 +1,15 @@
+summaries:
+  - id: SUM-general
+    tags: [general, platform]
+    atoms: [NORTH-scale]
+    text: >-
+      Platform engineer with eight years building the systems other engineers depend on —
+      service infrastructure, CI, and the tooling that keeps a 40-engineer org shipping daily.
+
+  - id: SUM-ai
+    tags: [ai, eval, metric]
+    atoms: [NORTH-evalharness, NORTH-latency]
+    text: >-
+      Engineer working at the boundary of platform and ML: built the evaluation harness
+      that gates model releases, and cut inference latency by more than half. Treats model
+      quality as a measurement problem rather than a vibe.

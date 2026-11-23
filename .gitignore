@@ -1,0 +1,10 @@
+node_modules/
+build/
+
+# Your real career data. Never committed.
+# Copy profile.example/ to profile/ and edit there.
+profile/
+
+# Your real applications — these name companies you're applying to.
+targets/*
+!targets/example-*.yml

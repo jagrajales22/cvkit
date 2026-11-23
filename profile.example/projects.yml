@@ -1,0 +1,13 @@
+projects:
+  - id: PRJ-site
+    name: example.dev
+    url: https://example.dev
+    tags: [writing]
+    text: >-
+      Personal site with long-form writing on evaluation, measurement and platform design.
+
+  - id: PRJ-oss
+    name: slowquery
+    tags: [oss, hands-on]
+    text: >-
+      Open-source CLI that explains slow PostgreSQL queries in plain language. 1.2k stars.
