@@ -1,7 +1,14 @@
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import { allAtoms, evidenceIndex } from './load.mjs';
+
+// Resolve against the tool's own location, not the working directory, so cvkit
+// runs from anywhere — notably from a separate repo holding your real profile.
+const HERE = dirname(fileURLToPath(import.meta.url));
+const DEFAULT_SCHEMA = join(HERE, '..', 'schema', 'profile.schema.json');
 
 const PLACEHOLDER = /(TODO|TBD|\bX%|\[.*?\]|<[^>]+>)/i;
 
@@ -13,7 +20,7 @@ const PLACEHOLDER = /(TODO|TBD|\bX%|\[.*?\]|<[^>]+>)/i;
  *
  * Integrity findings are either `error` (blocks a strict build) or `warn`.
  */
-export function validate(profile, { schemaPath = 'schema/profile.schema.json' } = {}) {
+export function validate(profile, { schemaPath = DEFAULT_SCHEMA } = {}) {
   const findings = [];
 
   const ajv = new Ajv({ allErrors: true, strict: false });
