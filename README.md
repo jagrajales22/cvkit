@@ -39,7 +39,7 @@ Output lands in `build/`: an HTML CV (print to PDF from any browser) and a `.pla
 
 Four concepts, and the third is the one that doesn't exist anywhere else.
 
-**Profile** — split across as many YAML files under `profile/` as you like. Arrays concatenate on load, so `profile/experience/visa.yml` and `profile/experience/others.yml` merge into one list. Add a file, it's in. This is what "modular" means here: no monolith, no database.
+**Profile** — split across as many YAML files under `profile/` as you like. Arrays concatenate on load, so one file per employer under `profile/experience/` merges into a single list. Add a file, it's in. This is what "modular" means here: no monolith, no database.
 
 **Atom** — one atomic, selectable claim. Not a resume bullet: a *fact with an id*. Atoms carry tags, a weight, and evidence references.
 
@@ -113,7 +113,7 @@ The same goes for the absent feature everyone expects: there is no match score. 
 
 ## Design decisions
 
-**One column, no tables, real headings.** Parser-safe by construction. The polish lives in CSS, which a parser never reads, so there is no trade-off between "ATS friendly" and "looks like a person made it".
+**The generated CV is one column, no tables, real headings.** Parser-safe by construction. The polish lives in CSS, which a parser never reads, so there is no trade-off between "ATS friendly" and "looks like a person made it".
 
 **HTML as the render target.** Browsers already produce excellent PDFs and every machine has one. DOCX and Typst renderers are planned; the renderer interface takes `(profile, target, selection)` and returns a string, so adding one is a single file.
 

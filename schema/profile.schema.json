@@ -66,7 +66,7 @@
         "properties": {
           "id": { "type": "string" },
           "org": { "type": "string" },
-          "org_note": { "type": "string", "description": "e.g. 'a Visa solution', 'contract via Forte Group'" },
+          "org_note": { "type": "string", "description": "Qualifier shown beside the org, e.g. 'a subsidiary of X', 'contract via Y'" },
           "title": { "type": "string", "description": "Title shown on the CV for this block" },
           "location": { "type": "string" },
           "start": { "type": "string", "pattern": "^[0-9]{4}(-[0-9]{2})?$" },

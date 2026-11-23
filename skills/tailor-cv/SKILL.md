@@ -53,7 +53,7 @@ Never paste the full CV into the conversation. The user opens the HTML.
 The user describes something they did. Convert it to an atom plus an evidence entry.
 
 - Put the atom in the right role file under `profile/experience/`.
-- Id convention: `<ROLE>-<short-slug>`, e.g. `VISA-cert-time`.
+- Id convention: `<ROLE>-<short-slug>`, e.g. `NORTH-latency`.
 - Tag it with tags already used in the profile where they fit.
 - `weight`: 8–10 for the strongest claims, 1–3 for background.
 - Create the matching evidence entry in `profile/evidence.yml` with `defensible: false`
