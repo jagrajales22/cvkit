@@ -44,6 +44,19 @@ export function select(profile, target, { strict = false } = {}) {
   const forceIn = new Set(target.force_include ?? []);
 
   pool = pool.filter((a) => {
+    // Strict is checked FIRST and outranks everything, including `pinned` and
+    // `force_include`. Those say "this claim is important"; they cannot say
+    // "this claim is true". A bypass here would make --strict a suggestion.
+    if (strict && !a.verified) {
+      dropped.push({ ...a, reason: 'not verified (strict)' });
+      if (a.pinned || forceIn.has(a.id)) {
+        notes.push(
+          `DROPPED DESPITE ${a.pinned ? 'pinned' : 'force_include'}: ${a.id} — ` +
+          `strict mode outranks it. Mark its evidence defensible, or build without --strict.`
+        );
+      }
+      return false;
+    }
     if (forceIn.has(a.id)) return true;
     if (forceOut.has(a.id)) {
       dropped.push({ ...a, reason: 'force_exclude' });
@@ -54,19 +67,8 @@ export function select(profile, target, { strict = false } = {}) {
       dropped.push({ ...a, reason: `excluded tag` });
       return false;
     }
-    if (strict && !a.verified && !a.pinned) {
-      dropped.push({ ...a, reason: 'not verified (strict)' });
-      return false;
-    }
     return true;
   });
-
-  if (strict) {
-    const pinnedUnverified = pool.filter((a) => a.pinned && !a.verified);
-    for (const a of pinnedUnverified) {
-      notes.push(`PINNED BUT UNVERIFIED: ${a.id} — kept because pinned, but you cannot source it yet.`);
-    }
-  }
 
   pool.sort((a, b) => b.score - a.score || (b.weight ?? 1) - (a.weight ?? 1));
 
@@ -86,6 +88,22 @@ export function select(profile, target, { strict = false } = {}) {
   for (const atom of kept) {
     if (!atom.pinned && selected.length >= total) { dropped.push({ ...atom, reason: 'total budget' }); continue; }
     selected.push(atom);
+  }
+
+  // Pinned atoms are allowed past the budget — that is what pinning is for — but a
+  // budget quietly exceeded becomes a CV that quietly runs long. Say so.
+  if (Number.isFinite(total) && selected.length > total) {
+    const over = selected.length - total;
+    const pinned = selected.filter((a) => a.pinned).map((a) => a.id);
+    notes.push(
+      `OVER BUDGET: ${selected.length} atoms against atoms_total ${total} (${over} over). ` +
+      `Pinned atoms bypass the budget: ${pinned.join(', ')}. Unpin some, or raise the budget.`
+    );
+  }
+  for (const [role, n] of Object.entries(counts)) {
+    if (Number.isFinite(perRole) && n > perRole) {
+      notes.push(`OVER BUDGET: ${role} has ${n} atoms against atoms_per_role ${perRole}, due to pinned atoms.`);
+    }
   }
 
   // Restore document order within each role so the CV reads chronologically.

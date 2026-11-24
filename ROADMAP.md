@@ -9,7 +9,7 @@ selection with budgets, HTML renderer, keyword gap reporting, strict mode, Claud
 - JSON Resume export (lossy — atoms flatten to bullets — but unlocks 50+ community themes)
 - DOCX renderer via docx-js, for recruiters who edit the file
 - A second HTML template (EU/Czech conventions: languages with CEFR, work authorisation line)
-- Tests on the selection engine
+- ~~Tests on the selection engine~~ done in v0.1.1 — see TESTING.md
 
 ## v0.3 — the part that compounds
 - `cvkit log` — append an evidence entry from one command, for the monthly habit

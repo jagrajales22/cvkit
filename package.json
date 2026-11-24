@@ -6,7 +6,8 @@
     "check": "node src/cli.mjs check",
     "evidence": "node src/cli.mjs evidence",
     "build": "node src/cli.mjs build",
-    "pdf": "soffice --headless --convert-to pdf build/*.html --outdir build"
+    "pdf": "soffice --headless --convert-to pdf build/*.html --outdir build",
+    "test": "node --test test/*.test.mjs"
   },
   "keywords": [
     "resume",

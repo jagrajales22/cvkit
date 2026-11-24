@@ -127,6 +127,18 @@ The same goes for the absent feature everyone expects: there is no match score. 
 
 `skills/tailor-cv/SKILL.md` makes an agent a first-class user: it drafts target files from a pasted job description, proposes new atoms when you describe a win, and converts your notes into evidence entries. It cannot mark anything defensible — that's yours.
 
+## Tests
+
+```bash
+npm test
+```
+
+29 tests on Node's built-in runner, no dependencies. They are ranked by what it
+costs when each thing fails rather than by coverage, because a suite that
+exercises the date formatter while leaving a hole in strict mode would look well
+covered and be worthless. `TESTING.md` has the risk model, and the three defects
+the first run found — two of which let an unverified claim through `--strict`.
+
 ## Status
 
 v0.1. Working end to end: load, validate, select, render, report. Roadmap in `ROADMAP.md`.
