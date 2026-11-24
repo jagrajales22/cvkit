@@ -106,10 +106,48 @@ export function keywordGaps(selected, target) {
 }
 
 export function pickTagged(items, target, limit = Infinity) {
+  return rankTagged(items, target).slice(0, limit).map((x) => x.item);
+}
+
+/** Rank by how many of the target's preferred tags an item carries. Keeps the score. */
+export function rankTagged(items, target) {
   const prefer = (target.prefer ?? []).map((t) => t.toLowerCase());
   return [...(items ?? [])]
-    .map((i) => ({ i, s: (i.tags ?? []).filter((t) => prefer.includes(t.toLowerCase())).length }))
-    .sort((a, b) => b.s - a.s)
-    .slice(0, limit)
-    .map((x) => x.i);
+    .map((item) => ({
+      item,
+      score: (item.tags ?? []).filter((t) => prefer.includes(t.toLowerCase())).length
+    }))
+    .sort((a, b) => b.score - a.score);
+}
+
+/**
+ * Everything outside the experience bullets: headline, summary, skills, projects.
+ * Verification never applies here — these carry no evidence — so --strict does not
+ * affect them. They are cut by budget alone, which is why the build has to say so.
+ */
+export function selectSections(profile, target) {
+  const budget = target.budget ?? {};
+  const limits = { skills: budget.skill_groups ?? 5, projects: budget.projects ?? 3 };
+
+  const cut = (key, limit) => {
+    const ranked = rankTagged(profile[key], target);
+    return {
+      kept: ranked.slice(0, limit).map((x) => x.item),
+      dropped: ranked.slice(limit).map((x) => ({ id: x.item.id, score: x.score, limit }))
+    };
+  };
+
+  const skills = cut('skills', limits.skills);
+  const projects = cut('projects', limits.projects);
+
+  return {
+    headline: (profile.headlines ?? []).find((h) => h.id === target.headline)
+      ?? pickTagged(profile.headlines, target, 1)[0],
+    summary: (profile.summaries ?? []).find((s) => s.id === target.summary)
+      ?? pickTagged(profile.summaries, target, 1)[0],
+    skills: skills.kept,
+    projects: projects.kept,
+    dropped: { skills: skills.dropped, projects: projects.dropped },
+    limits
+  };
 }

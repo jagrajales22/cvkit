@@ -3,7 +3,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadProfile, loadTarget, evidenceIndex, allAtoms } from './load.mjs';
 import { validate, isVerified } from './validate.mjs';
-import { select, keywordGaps } from './select.mjs';
+import { select, keywordGaps, selectSections } from './select.mjs';
 import { renderHTML } from './render-html.mjs';
 
 const args = process.argv.slice(2);
@@ -60,12 +60,13 @@ function cmdBuild() {
 
   const target = loadTarget(targetPath);
   const selection = select(profile, target, { strict });
+  const sections = selectSections(profile, target);
   const gaps = keywordGaps(selection.selected, target);
 
   mkdirSync(outDir, { recursive: true });
   const base = `${(profile.identity.name ?? 'cv').split(' ').slice(-2).join('_')}_${target.id}`;
   const htmlPath = join(outDir, `${base}.html`);
-  writeFileSync(htmlPath, renderHTML(profile, target, selection));
+  writeFileSync(htmlPath, renderHTML(profile, target, selection, sections));
 
   const planPath = join(outDir, `${base}.plan.json`);
   writeFileSync(planPath, JSON.stringify({
@@ -74,6 +75,14 @@ function cmdBuild() {
     built: new Date().toISOString(),
     selected: selection.selected.map((a) => ({ id: a.id, role: a.role, score: a.score, verified: a.verified })),
     dropped: selection.dropped.map((a) => ({ id: a.id, reason: a.reason })),
+    sections: {
+      headline: sections.headline?.id,
+      summary: sections.summary?.id,
+      skills: sections.skills.map((s) => s.id),
+      projects: sections.projects.map((p) => p.id),
+      dropped: sections.dropped,
+      limits: sections.limits
+    },
     keyword_gaps: gaps,
     notes: selection.notes
   }, null, 2));
@@ -84,6 +93,11 @@ function cmdBuild() {
   say(`  ${selection.selected.length} atoms selected, ${selection.dropped.length} dropped${strict ? `${C.green} (strict)${C.off}` : ''}`);
   if (unverified.length) {
     say(`${C.yellow}  ${unverified.length} selected atoms are not verified:${C.off} ${unverified.map((a) => a.id).join(', ')}`);
+  }
+  for (const [kind, list] of Object.entries(sections.dropped)) {
+    if (!list.length) continue;
+    say(`${C.yellow}  ${list.length} ${kind} cut by budget (limit ${sections.limits[kind]}):${C.off} ${list.map((d) => d.id).join(', ')}`);
+    say(`${C.dim}  (budget.${kind === 'skills' ? 'skill_groups' : kind} in the target; not affected by --strict)${C.off}`);
   }
   if (gaps.length) {
     say(`${C.yellow}  keyword gaps:${C.off} ${gaps.join(', ')}`);

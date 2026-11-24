@@ -1,4 +1,4 @@
-import { pickTagged } from './select.mjs';
+import { selectSections } from './select.mjs';
 
 const esc = (s = '') => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 
@@ -16,7 +16,7 @@ const range = (a, b) => `${fmtDate(a)} – ${fmtDate(b)}`;
  * The visual polish lives in CSS, which a parser never sees, so there is no trade-off
  * between "ATS friendly" and "looks like a person made it".
  */
-export function renderHTML(profile, target, selection) {
+export function renderHTML(profile, target, selection, sections) {
   const { identity = {}, experience = [] } = profile;
   const byRole = new Map();
   for (const atom of selection.selected) {
@@ -24,12 +24,7 @@ export function renderHTML(profile, target, selection) {
     byRole.get(atom.role).push(atom);
   }
 
-  const headline = (profile.headlines ?? []).find((h) => h.id === target.headline)
-    ?? pickTagged(profile.headlines, target, 1)[0];
-  const summary = (profile.summaries ?? []).find((s) => s.id === target.summary)
-    ?? pickTagged(profile.summaries, target, 1)[0];
-  const skills = pickTagged(profile.skills, target, target.budget?.skill_groups ?? 5);
-  const projects = pickTagged(profile.projects, target, target.budget?.projects ?? 3);
+  const { headline, summary, skills, projects } = sections ?? selectSections(profile, target);
 
   const links = Object.values(identity.links ?? {}).map(esc).join(' &middot; ');
 
