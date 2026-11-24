@@ -111,7 +111,9 @@ ${profile.education.filter((e) => e.kind === 'degree').map((e) => `<p class="ski
 
 ${projects.length ? `<h2>Selected Projects</h2>\n${projects.map((p) => `<p class="skill"><b>${esc(p.name)}:</b> ${esc(p.text)}</p>`).join('\n')}` : ''}
 
-${profile.languages?.length ? `<h2>Languages</h2>\n<p class="skill">${profile.languages.map((l) => `${esc(l.name)} (${esc(l.level)})`).join(' &middot; ')}</p>` : ''}
+${profile.languages?.length || identity.work_authorization ? `<h2>Languages${identity.work_authorization ? ' &amp; Work Authorization' : ''}</h2>
+${profile.languages?.length ? `<p class="skill"><b>Languages:</b> ${profile.languages.map((l) => `${esc(l.name)} (${esc(l.level)})`).join(' &middot; ')}</p>` : ''}
+${identity.work_authorization ? `<p class="skill"><b>Work authorization:</b> ${Object.entries(identity.work_authorization).map(([k, v]) => `${esc(k)}: ${esc(v)}`).join(' &middot; ')}</p>` : ''}` : ''}
 
 </body>
 </html>
